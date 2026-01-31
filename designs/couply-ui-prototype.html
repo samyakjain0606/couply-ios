@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Couply - UI Design Prototype</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Warm, intimate color palette */
+            --peach-light: #FFF5F0;
+            --peach: #FFDDD2;
+            --coral: #FF8A7A;
+            --coral-deep: #E76F5A;
+            --rose: #FFB4A2;
+            --rose-deep: #E5989B;
+            --blush: #FFCDB2;
+            --cream: #FFF8F5;
+            --warm-white: #FFFAF8;
+            --soft-brown: #6D5D4E;
+            --warm-gray: #8B7E74;
+            --dark-warm: #3D3228;
+
+            /* Accent colors */
+            --love-red: #FF6B6B;
+            --heartbeat: #FF4D6D;
+            --golden-hour: #FFB347;
+            --lavender-mist: #E8D5E0;
+
+            /* Shadows */
+            --shadow-soft: 0 4px 20px rgba(231, 111, 90, 0.15);
+            --shadow-medium: 0 8px 32px rgba(231, 111, 90, 0.2);
+            --shadow-glow: 0 0 40px rgba(255, 138, 122, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, var(--peach-light) 0%, var(--lavender-mist) 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: var(--dark-warm);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Fraunces', serif;
+        }
+
+        /* Page Layout */
+        .design-showcase {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .showcase-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .showcase-header h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--coral-deep) 0%, var(--heartbeat) 50%, var(--rose-deep) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .showcase-header p {
+            font-size: 1.2rem;
+            color: var(--warm-gray);
+            font-weight: 300;
+        }
+
+        /* Phone Frame */
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+            justify-items: center;
+        }
+
+        .screen-container {
+            text-align: center;
+        }
+
+        .screen-label {
+            font-family: 'Fraunces', serif;
+            font-size: 1.4rem;
+            color: var(--coral-deep);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .phone-frame {
+            width: 300px;
+            height: 650px;
+            background: var(--dark-warm);
+            border-radius: 45px;
+            padding: 12px;
+            box-shadow:
+                var(--shadow-medium),
+                inset 0 0 0 2px rgba(255,255,255,0.1);
+            position: relative;
+        }
+
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 28px;
+            background: var(--dark-warm);
+            border-radius: 20px;
+            z-index: 10;
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            border-radius: 35px;
+            overflow: hidden;
+            position: relative;
+            background: var(--warm-white);
+        }
+
+        /* ==================== */
+        /* CAMERA VIEW SCREEN */
+        /* ==================== */
+        .camera-screen {
+            background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .camera-viewfinder {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .camera-viewfinder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.3) 100%);
+        }
+
+        .camera-placeholder {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--peach) 0%, var(--rose) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: breathe 3s ease-in-out infinite;
+            box-shadow: var(--shadow-glow);
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .camera-placeholder span {
+            font-size: 3rem;
+        }
+
+        .camera-top-controls {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 5;
+        }
+
+        .camera-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .camera-btn:hover {
+            background: rgba(255,255,255,0.25);
+            transform: scale(1.1);
+        }
+
+        .camera-bottom {
+            padding: 30px 20px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+        }
+
+        .gallery-preview {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--rose) 100%);
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .capture-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--heartbeat) 100%);
+            border: 4px solid rgba(255,255,255,0.9);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 30px rgba(255, 77, 109, 0.5);
+        }
+
+        .capture-btn::before {
+            content: '';
+            position: absolute;
+            inset: 6px;
+            border-radius: 50%;
+            background: inherit;
+            transition: all 0.15s ease;
+        }
+
+        .capture-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .capture-btn:active::before {
+            transform: scale(0.9);
+        }
+
+        .flip-camera {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Partner indicator */
+        .partner-indicator {
+            position: absolute;
+            top: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            z-index: 5;
+        }
+
+        .partner-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--rose) 0%, var(--coral) 100%);
+            border: 2px solid white;
+        }
+
+        .partner-name {
+            color: white;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4ADE80;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ==================== */
+        /* FEED SCREEN */
+        /* ==================== */
+        .feed-screen {
+            background: var(--warm-white);
+        }
+
+        .feed-header {
+            padding: 55px 20px 15px;
+            background: linear-gradient(180deg, var(--cream) 0%, var(--warm-white) 100%);
+        }
+
+        .feed-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem;
+            color: var(--dark-warm);
+            margin-bottom: 15px;
+        }
+
+        .feed-filters {
+            display: flex;
+            gap: 8px;
+        }
+
+        .filter-pill {
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--peach-light);
+            color: var(--warm-gray);
+        }
+
+        .filter-pill.active {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--rose-deep) 100%);
+            color: white;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .feed-content {
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: calc(100% - 150px);
+            overflow-y: auto;
+        }
+
+        .memory-card {
+            border-radius: 24px;
+            overflow: hidden;
+            background: white;
+            box-shadow: var(--shadow-soft);
+            animation: slideUp 0.6s ease-out backwards;
+        }
+
+        .memory-card:nth-child(1) { animation-delay: 0.1s; }
+        .memory-card:nth-child(2) { animation-delay: 0.2s; }
+        .memory-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .memory-image {
+            height: 160px;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--rose) 50%, var(--coral) 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .memory-image span {
+            font-size: 3rem;
+        }
+
+        .memory-time {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 4px 10px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            color: white;
+            font-size: 0.75rem;
+        }
+
+        .memory-info {
+            padding: 15px;
+        }
+
+        .memory-sender {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .memory-sender-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--rose) 100%);
+        }
+
+        .memory-sender-name {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--dark-warm);
+        }
+
+        .memory-reactions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .reaction-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
+            border: 1.5px solid var(--peach);
+            background: var(--peach-light);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .reaction-btn:hover {
+            background: var(--peach);
+            transform: scale(1.05);
+        }
+
+        .reaction-btn.liked {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--heartbeat) 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        /* ==================== */
+        /* CONNECT SCREEN */
+        /* ==================== */
+        .connect-screen {
+            background: linear-gradient(180deg, var(--cream) 0%, var(--lavender-mist) 100%);
+        }
+
+        .connect-header {
+            padding: 55px 20px 20px;
+            text-align: center;
+        }
+
+        .connect-title {
+            font-family: 'Fraunces', serif;
+            font-size: 1.5rem;
+            color: var(--dark-warm);
+            margin-bottom: 5px;
+        }
+
+        .connect-subtitle {
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+        }
+
+        .connect-content {
+            padding: 0 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Mood Ring */
+        .mood-ring-card {
+            background: white;
+            border-radius: 28px;
+            padding: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .mood-ring-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .mood-ring-title {
+            font-weight: 600;
+            color: var(--dark-warm);
+        }
+
+        .partner-mood {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--peach-light);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--coral-deep);
+        }
+
+        .mood-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .mood-option {
+            padding: 12px 8px;
+            border-radius: 16px;
+            border: 2px solid var(--peach);
+            background: var(--peach-light);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mood-option:hover {
+            border-color: var(--coral);
+            background: var(--peach);
+        }
+
+        .mood-option.selected {
+            border-color: var(--coral);
+            background: linear-gradient(135deg, var(--coral) 0%, var(--rose-deep) 100%);
+            color: white;
+            transform: scale(1.02);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .mood-emoji {
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .mood-label {
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        /* Digital Touch */
+        .digital-touch-card {
+            background: linear-gradient(135deg, var(--coral) 0%, var(--heartbeat) 100%);
+            border-radius: 28px;
+            padding: 20px;
+            color: white;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .digital-touch-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .touch-options {
+            display: flex;
+            gap: 12px;
+        }
+
+        .touch-btn {
+            flex: 1;
+            padding: 15px 10px;
+            border-radius: 20px;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .touch-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+        }
+
+        .touch-icon {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .touch-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Heartbeat animation */
+        .heartbeat-btn .touch-icon {
+            animation: heartbeat 1.2s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            15% { transform: scale(1.15); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.1); }
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .quick-action {
+            background: white;
+            border-radius: 20px;
+            padding: 18px 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-soft);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-action:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .action-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+        }
+
+        .action-icon.countdown {
+            background: linear-gradient(135deg, var(--golden-hour) 0%, #FFD700 100%);
+        }
+
+        .action-icon.sync {
+            background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+        }
+
+        .action-icon.ugly {
+            background: linear-gradient(135deg, #4ADE80 0%, #22C55E 100%);
+        }
+
+        .action-icon.doodle {
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+        }
+
+        .action-text {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--dark-warm);
+        }
+
+        /* ==================== */
+        /* WIDGETS SECTION */
+        /* ==================== */
+        .widgets-section {
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .widgets-title {
+            font-family: 'Fraunces', serif;
+            font-size: 2rem;
+            color: var(--coral-deep);
+            margin-bottom: 40px;
+        }
+
+        .widgets-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .widget-container {
+            text-align: center;
+        }
+
+        .widget-label {
+            font-size: 0.9rem;
+            color: var(--warm-gray);
+            margin-bottom: 15px;
+        }
+
+        /* Small Widget */
+        .widget-small {
+            width: 150px;
+            height: 150px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, var(--peach) 0%, var(--rose) 100%);
+            padding: 15px;
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .widget-photo {
+            flex: 1;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--heartbeat) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .widget-streak {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-weight: 600;
+            color: var(--dark-warm);
+            font-size: 0.9rem;
+        }
+
+        /* Medium Widget */
+        .widget-medium {
+            width: 320px;
+            height: 150px;
+            border-radius: 28px;
+            background: linear-gradient(135deg, var(--cream) 0%, var(--peach-light) 100%);
+            padding: 15px;
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            gap: 15px;
+            overflow: hidden;
+        }
+
+        .widget-medium .widget-photo {
+            width: 120px;
+            height: 100%;
+            margin-bottom: 0;
+            flex-shrink: 0;
+        }
+
+        .widget-medium-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+
+        .widget-partner-name {
+            font-family: 'Fraunces', serif;
+            font-size: 1.1rem;
+            color: var(--dark-warm);
+            margin-bottom: 6px;
+        }
+
+        .widget-mood {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--warm-gray);
+            margin-bottom: 10px;
+        }
+
+        .widget-medium .widget-streak {
+            justify-content: flex-start;
+            padding: 8px 12px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--rose-deep) 100%);
+            border-radius: 14px;
+            color: white;
+            width: fit-content;
+        }
+
+        /* Large Widget */
+        .widget-large {
+            width: 320px;
+            height: 320px;
+            border-radius: 32px;
+            background: linear-gradient(180deg, var(--peach-light) 0%, var(--cream) 100%);
+            padding: 15px;
+            box-shadow: var(--shadow-medium);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .widget-large-photo {
+            flex: 1;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--blush) 0%, var(--coral) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .widget-large-photo::after {
+            content: '2h ago';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            padding: 4px 10px;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            color: white;
+            font-size: 0.7rem;
+        }
+
+        .widget-thumbnails {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .widget-thumb {
+            flex: 1;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--rose) 0%, var(--peach) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .widget-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .widget-large .widget-streak {
+            padding: 8px 14px;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--heartbeat) 100%);
+            border-radius: 14px;
+            color: white;
+        }
+
+        .widget-send-btn {
+            padding: 8px 14px;
+            background: var(--dark-warm);
+            border-radius: 14px;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .widget-send-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Tab Bar */
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0 10px 15px;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-icon {
+            font-size: 1.4rem;
+            opacity: 0.5;
+        }
+
+        .tab-label {
+            font-size: 0.65rem;
+            color: var(--warm-gray);
+        }
+
+        .tab-item.active .tab-icon {
+            opacity: 1;
+        }
+
+        .tab-item.active .tab-label {
+            color: var(--coral-deep);
+            font-weight: 600;
+        }
+
+        /* Center capture tab */
+        .tab-capture {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--coral) 0%, var(--heartbeat) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: -20px;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+        }
+
+        .tab-capture .tab-icon {
+            opacity: 1;
+            color: white;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .showcase-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .screens-grid {
+                gap: 40px;
+            }
+
+            .phone-frame {
+                width: 280px;
+                height: 600px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="design-showcase">
+        <header class="showcase-header">
+            <h1>Couply</h1>
+            <p>UI Design System — Feel connected in 2 seconds</p>
+        </header>
+
+        <div class="screens-grid">
+            <!-- Camera Screen -->
+            <div class="screen-container">
+                <div class="screen-label">Camera View</div>
+                <div class="phone-frame">
+                    <div class="phone-screen camera-screen">
+                        <div class="camera-viewfinder">
+                            <div class="camera-top-controls">
+                                <button class="camera-btn">⚡</button>
+                                <button class="camera-btn">✨</button>
+                            </div>
+
+                            <div class="partner-indicator">
+                                <div class="partner-avatar"></div>
+                                <span class="partner-name">Sending to Alex</span>
+                                <div class="online-dot"></div>
+                            </div>
+
+                            <div class="camera-placeholder">
+                                <span>📸</span>
+                            </div>
+                        </div>
+
+                        <div class="camera-bottom">
+                            <div class="gallery-preview"></div>
+                            <button class="capture-btn"></button>
+                            <button class="flip-camera">🔄</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feed Screen -->
+            <div class="screen-container">
+                <div class="screen-label">Photo Feed</div>
+                <div class="phone-frame">
+                    <div class="phone-screen feed-screen">
+                        <div class="feed-header">
+                            <h2 class="feed-title">Memories</h2>
+                            <div class="feed-filters">
+                                <button class="filter-pill active">All</button>
+                                <button class="filter-pill">Sent</button>
+                                <button class="filter-pill">Received</button>
+                                <button class="filter-pill">💕</button>
+                            </div>
+                        </div>
+
+                        <div class="feed-content">
+                            <div class="memory-card">
+                                <div class="memory-image">
+                                    <span>🌅</span>
+                                    <div class="memory-time">2h ago</div>
+                                </div>
+                                <div class="memory-info">
+                                    <div class="memory-sender">
+                                        <div class="memory-sender-avatar"></div>
+                                        <span class="memory-sender-name">Alex</span>
+                                    </div>
+                                    <div class="memory-reactions">
+                                        <button class="reaction-btn liked">❤️ 1</button>
+                                        <button class="reaction-btn">😍</button>
+                                        <button class="reaction-btn">🔥</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="memory-card">
+                                <div class="memory-image" style="background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);">
+                                    <span>☕</span>
+                                    <div class="memory-time">5h ago</div>
+                                </div>
+                                <div class="memory-info">
+                                    <div class="memory-sender">
+                                        <div class="memory-sender-avatar" style="background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);"></div>
+                                        <span class="memory-sender-name">You</span>
+                                    </div>
+                                    <div class="memory-reactions">
+                                        <button class="reaction-btn">❤️</button>
+                                        <button class="reaction-btn">😍</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-bar">
+                            <div class="tab-item">
+                                <span class="tab-icon">💬</span>
+                                <span class="tab-label">Chat</span>
+                            </div>
+                            <div class="tab-item active">
+                                <span class="tab-icon">🏠</span>
+                                <span class="tab-label">Feed</span>
+                            </div>
+                            <div class="tab-item tab-capture">
+                                <span class="tab-icon">📷</span>
+                            </div>
+                            <div class="tab-item">
+                                <span class="tab-icon">❤️</span>
+                                <span class="tab-label">Connect</span>
+                            </div>
+                            <div class="tab-item">
+                                <span class="tab-icon">👤</span>
+                                <span class="tab-label">Profile</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Connect Screen -->
+            <div class="screen-container">
+                <div class="screen-label">Connect Tab</div>
+                <div class="phone-frame">
+                    <div class="phone-screen connect-screen">
+                        <div class="connect-header">
+                            <h2 class="connect-title">Stay Connected</h2>
+                            <p class="connect-subtitle">Send some love to Alex 💕</p>
+                        </div>
+
+                        <div class="connect-content">
+                            <!-- Mood Ring -->
+                            <div class="mood-ring-card">
+                                <div class="mood-ring-header">
+                                    <span class="mood-ring-title">How are you feeling?</span>
+                                    <div class="partner-mood">
+                                        <span>Alex: 😊</span>
+                                    </div>
+                                </div>
+                                <div class="mood-options">
+                                    <div class="mood-option">
+                                        <span class="mood-emoji">😊</span>
+                                        <span class="mood-label">Great</span>
+                                    </div>
+                                    <div class="mood-option selected">
+                                        <span class="mood-emoji">🥰</span>
+                                        <span class="mood-label">Loved</span>
+                                    </div>
+                                    <div class="mood-option">
+                                        <span class="mood-emoji">😴</span>
+                                        <span class="mood-label">Tired</span>
+                                    </div>
+                                    <div class="mood-option">
+                                        <span class="mood-emoji">😢</span>
+                                        <span class="mood-label">Sad</span>
+                                    </div>
+                                    <div class="mood-option">
+                                        <span class="mood-emoji">🔥</span>
+                                        <span class="mood-label">Missing</span>
+                                    </div>
+                                    <div class="mood-option">
+                                        <span class="mood-emoji">🎉</span>
+                                        <span class="mood-label">Excited</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Digital Touch -->
+                            <div class="digital-touch-card">
+                                <div class="digital-touch-title">
+                                    <span>✨</span> Digital Touch
+                                </div>
+                                <div class="touch-options">
+                                    <button class="touch-btn heartbeat-btn">
+                                        <span class="touch-icon">💓</span>
+                                        <span class="touch-label">Heartbeat</span>
+                                    </button>
+                                    <button class="touch-btn">
+                                        <span class="touch-icon">👆</span>
+                                        <span class="touch-label">Poke</span>
+                                    </button>
+                                    <button class="touch-btn">
+                                        <span class="touch-icon">🤗</span>
+                                        <span class="touch-label">Hug</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Quick Actions -->
+                            <div class="quick-actions">
+                                <div class="quick-action">
+                                    <div class="action-icon countdown">⏰</div>
+                                    <span class="action-text">Countdown</span>
+                                </div>
+                                <div class="quick-action">
+                                    <div class="action-icon sync">📸</div>
+                                    <span class="action-text">Sync Moment</span>
+                                </div>
+                                <div class="quick-action">
+                                    <div class="action-icon ugly">🤪</div>
+                                    <span class="action-text">Ugly Wars</span>
+                                </div>
+                                <div class="quick-action">
+                                    <div class="action-icon doodle">✏️</div>
+                                    <span class="action-text">Doodle</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-bar">
+                            <div class="tab-item">
+                                <span class="tab-icon">💬</span>
+                                <span class="tab-label">Chat</span>
+                            </div>
+                            <div class="tab-item">
+                                <span class="tab-icon">🏠</span>
+                                <span class="tab-label">Feed</span>
+                            </div>
+                            <div class="tab-item tab-capture">
+                                <span class="tab-icon">📷</span>
+                            </div>
+                            <div class="tab-item active">
+                                <span class="tab-icon">❤️</span>
+                                <span class="tab-label">Connect</span>
+                            </div>
+                            <div class="tab-item">
+                                <span class="tab-icon">👤</span>
+                                <span class="tab-label">Profile</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Widgets Section -->
+        <section class="widgets-section">
+            <h2 class="widgets-title">Home Screen Widgets</h2>
+            <div class="widgets-grid">
+                <div class="widget-container">
+                    <div class="widget-label">Small (2×2)</div>
+                    <div class="widget-small floating">
+                        <div class="widget-photo">🥰</div>
+                        <div class="widget-streak">
+                            <span>🔥</span>
+                            <span>47 days</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-container">
+                    <div class="widget-label">Medium (4×2)</div>
+                    <div class="widget-medium">
+                        <div class="widget-photo">💕</div>
+                        <div class="widget-medium-info">
+                            <div class="widget-partner-name">Alex</div>
+                            <div class="widget-mood">
+                                <span>😊</span>
+                                <span>Feeling great</span>
+                            </div>
+                            <div class="widget-streak">
+                                <span>🔥</span>
+                                <span>47 days</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-container">
+                    <div class="widget-label">Large (4×4)</div>
+                    <div class="widget-large">
+                        <div class="widget-large-photo">🌅</div>
+                        <div class="widget-thumbnails">
+                            <div class="widget-thumb">☕</div>
+                            <div class="widget-thumb">🌸</div>
+                            <div class="widget-thumb">🎵</div>
+                        </div>
+                        <div class="widget-bottom">
+                            <div class="widget-streak">
+                                <span>🔥</span>
+                                <span>47</span>
+                            </div>
+                            <div class="widget-send-btn">
+                                <span>📷</span>
+                                <span>Send photo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Add interactivity
+        document.querySelectorAll('.mood-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.mood-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+            });
+        });
+
+        document.querySelectorAll('.filter-pill').forEach(pill => {
+            pill.addEventListener('click', function() {
+                document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        document.querySelectorAll('.reaction-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.classList.toggle('liked');
+            });
+        });
+
+        // Touch button haptic simulation
+        document.querySelectorAll('.touch-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Capture button interaction
+        document.querySelector('.capture-btn')?.addEventListener('click', function() {
+            this.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
+    </script>
+</body>
+</html>
